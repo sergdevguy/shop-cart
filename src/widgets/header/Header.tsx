@@ -7,8 +7,8 @@ export default function Header() {
 	const totalItems = useCartStore(state => state.totalItems())
 
 	const navItems = [
-		{ name: 'Home', path: '/', icon: Home },
-		{ name: 'Products', path: '/products', icon: Smartphone }
+		{ name: 'Домой', path: '/', icon: Home },
+		{ name: 'Товары', path: '/products', icon: Smartphone }
 	]
 
 	return (
@@ -21,8 +21,8 @@ export default function Header() {
 					>
 						<div className="flex h-10 w-10 items-center justify-center">
 							<img
-								src="/origami.svg"
-								alt="Логотип компании"
+								src="/logo.svg"
+								alt="Логотип компании Shop Cart"
 							/>
 						</div>
 						<span className="text-xl font-bold text-black">Shop Cart</span>
@@ -48,10 +48,7 @@ export default function Header() {
 						to="/cart"
 						className="relative flex h-10 w-10 items-center justify-center rounded-sm bg-zinc-950 hover:bg-zinc-800"
 					>
-						<ShoppingBasket
-							size={24}
-							color="#ffffff"
-						/>
+						<ShoppingBasket className="w-10 text-white" />
 						{totalItems > 0 && (
 							<span className="absolute -right-2 -top-2 h-6 w-6 flex items-center justify-center text-[12px] rounded-full font-bold text-white bg-black">
 								{totalItems}
