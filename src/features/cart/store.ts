@@ -10,6 +10,7 @@ interface CartState {
 	clearCart: () => void
 	totalItems: () => number
 	totalPrice: () => number
+	itemQuantity: (pruductId: string) => number
 }
 
 export const useCartStore = create<CartState>()(
@@ -21,13 +22,7 @@ export const useCartStore = create<CartState>()(
 				const existingItem = items.find(item => item.id === product.id)
 
 				if (existingItem) {
-					set({
-						items: items.map(item =>
-							item.id === product.id
-								? { ...item, quantity: item.quantity + 1 }
-								: item
-						)
-					})
+					get().updateQuantity(existingItem.id, existingItem.quantity + 1)
 				} else {
 					set({ items: [...items, { ...product, quantity: 1 }] })
 				}
@@ -41,16 +36,23 @@ export const useCartStore = create<CartState>()(
 					return
 				}
 				set({
-					items: get().items.map(item =>
-						item.id === productId ? { ...item, quantity } : item
-					)
+					items: get().items.map(item => {
+						if (item.id === productId) {
+							const newQuantity = quantity >= item.stock ? item.stock : quantity
+							return { ...item, quantity: newQuantity }
+						} else {
+							return item
+						}
+					})
 				})
 			},
 			clearCart: () => set({ items: [] }),
 			totalItems: () =>
 				get().items.reduce((acc, item) => acc + item.quantity, 0),
 			totalPrice: () =>
-				get().items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+				get().items.reduce((acc, item) => acc + item.price * item.quantity, 0),
+			itemQuantity: productId =>
+				get().items.find(item => item.id === productId)?.quantity || 0
 		}),
 		{
 			name: 'shopcart-cart-storage'

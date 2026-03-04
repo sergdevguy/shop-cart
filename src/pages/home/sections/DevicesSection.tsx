@@ -30,7 +30,7 @@ export function DevicesSection() {
 				>
 					<Link
 						to="/products"
-						className="flex items-center gap-2 rounded-xl border border-zinc-950/80 bg-zinc-950/5 px-8 py-4 text-sm font-bold transition-colors hover:bg-white"
+						className="flex items-center gap-2 rounded-xl border border-zinc-950/80 bg-zinc-950/5 px-8 py-4 text-sm font-bold transition-transform hover:scale-103 active:scale-97"
 					>
 						Каталог смартфонов
 					</Link>
